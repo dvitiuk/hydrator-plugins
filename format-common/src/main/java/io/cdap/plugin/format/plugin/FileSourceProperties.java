@@ -32,6 +32,8 @@ import javax.annotation.Nullable;
  */
 public interface FileSourceProperties {
   String PATH_FIELD = "pathField";
+  String LENGTH_FIELD = "lengthField";
+  String MODIFICATION_TIME_FIELD = "modificationTimeField";
 
   /**
    * Validates the properties.
@@ -109,6 +111,12 @@ public interface FileSourceProperties {
    */
   @Nullable
   String getPathField();
+
+  @Nullable
+  String getLengthField();
+
+  @Nullable
+  String getModificationTimeField();
 
   /**
    * Whether to only use the filename rather than the entire URI of the file path,

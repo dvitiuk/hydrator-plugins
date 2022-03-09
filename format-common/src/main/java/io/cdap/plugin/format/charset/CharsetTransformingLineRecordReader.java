@@ -107,6 +107,11 @@ public class CharsetTransformingLineRecordReader extends RecordReader<LongWritab
     final FileSystem fs = file.getFileSystem(job);
     FSDataInputStream fileIn = fs.open(file);
 
+    long modificationTime = fs.getFileStatus(file).getModificationTime();
+    long length = fs.getFileStatus(file).getLen();
+    LOG.warn("MOD TIME: " + modificationTime);
+    LOG.warn("LENGTH: " + length);
+
     SplittableCompressionCodec codec = new FixedLengthCharsetTransformingCodec(fixedLengthCharset);
     decompressor = codec.createDecompressor();
 
@@ -137,7 +142,7 @@ public class CharsetTransformingLineRecordReader extends RecordReader<LongWritab
    * Note that, as the file is read in chunks to decompress, this number will only update in batches and usually be
    * ahead of the actual decompressed position in the underlying file.
    *
-   * See {@link FixedLengthCharsetTransformingDecompressorStream#getCompressedData}
+   * See
    *
    * @return File position
    * @throws IOException if an exception is thrown from the underlying strem operation.
